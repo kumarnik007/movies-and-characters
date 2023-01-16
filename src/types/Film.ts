@@ -10,3 +10,7 @@ export interface ApiResourceList {
   previous: string,
   results: Film[],
 }
+
+export interface Character {
+  name: string,
+}
