@@ -1,6 +1,6 @@
 export interface Film {
   title: string,
-  release_date: Date,
+  release_date: string,
   characters: string[],
 }
 

@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { getFilm } from "./api";
+import { FilmsList } from "./components/FilmsList";
 import { ApiResourceList, Film } from "./types/Film";
+import { convertDateToYear } from "./utils";
 
 export const App = () => {
   const [films, setFilms] = useState<Film[]>([]);
@@ -19,14 +21,16 @@ export const App = () => {
     fetchFilms();
   }, []);
 
+  const sortedFilms = useMemo(() => {
+    return [...films].sort((film1, film2) => (
+      (convertDateToYear(film1.release_date)
+        - convertDateToYear(film2.release_date))
+    ));
+  }, [films]);
+
   console.log('fetched films are ', films);
 
   return (
-    <figure className="image is-128x128">
-      <img
-        src="./"
-        alt="Stars background"
-      />
-    </figure>
+    <FilmsList films={sortedFilms} />
   );
 };
